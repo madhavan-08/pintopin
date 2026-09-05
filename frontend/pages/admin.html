@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Admin Panel – PintoPin</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .stats-grid {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      justify-content: center; padding: 30px;
+    }
+    .stat-card {
+      background: white; border-radius: 12px;
+      padding: 24px 32px; text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      min-width: 140px;
+    }
+    .stat-card h2 { font-size: 36px; color: #e94560; }
+    .stat-card p  { color: #666; font-size: 14px; margin-top: 4px; }
+    .tabs {
+      display: flex; gap: 8px;
+      justify-content: center; margin: 0 0 24px;
+    }
+    .tab {
+      padding: 10px 24px; border-radius: 8px;
+      border: 2px solid #e94560; cursor: pointer;
+      font-weight: 600; background: white; color: #e94560;
+    }
+    .tab.active { background: #e94560; color: white; }
+    .table-wrap { padding: 0 24px 40px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: white;
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+    th { background: #1a1a2e; color: white; padding: 14px 16px; text-align: left; }
+    td { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+    tr:last-child td { border-bottom: none; }
+    .badge {
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+    }
+    .badge-pending   { background: #fff3cd; color: #856404; }
+    .badge-accepted  { background: #cfe2ff; color: #084298; }
+    .badge-completed { background: #d1e7dd; color: #0f5132; }
+    .badge-approved  { background: #d1e7dd; color: #0f5132; }
+    .badge-waiting   { background: #fff3cd; color: #856404; }
+    .dashboard-title { text-align: center; padding: 30px 0 0; color: #1a1a2e; }
+  </style>
+</head>
+<body class="page-bg-admin">
+  <nav class="navbar">
+    <div class="logo">📍 PintoPin Admin</div>
+   <div class="nav-links">
+  <span style="color:#aaa">Admin Panel</span>
+  <a href="about.html" style="color:white">About</a>
+  <a href="#" onclick="handleLogout()" style="color:#e94560">Logout</a>
+</div>
+  </nav>
+
+  <div class="dashboard-title">
+    <h2>Admin Dashboard</h2>
+    <p style="color:#666">Manage your platform</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card"><h2 id="statUsers">-</h2><p>Customers</p></div>
+    <div class="stat-card"><h2 id="statDrivers">-</h2><p>Drivers</p></div>
+    <div class="stat-card"><h2 id="statBookings">-</h2><p>Total Bookings</p></div>
+    <div class="stat-card"><h2 id="statPending">-</h2><p>Pending</p></div>
+    <div class="stat-card"><h2 id="statCompleted">-</h2><p>Completed</p></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+  <button class="tab active" onclick="showTab('bookings')">Bookings</button>
+  <button class="tab" onclick="showTab('drivers')">Drivers</button>
+  <button class="tab" onclick="showTab('users')">Customers</button>
+ 
+</div>
+
+  <!-- Tables -->
+  <div class="table-wrap" id="bookingsTab">
+    <table>
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Service</th>
+          <th>Pickup</th>
+          <th>Drop</th>
+          <th>Fare</th>
+          <th>Status</th>
+          <th>Driver</th>
+        </tr>
+      </thead>
+      <tbody id="bookingsBody"></tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap" id="driversTab" style="display:none">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Email</th><th>Phone</th><th>Status</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="driversBody"></tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap" id="usersTab" style="display:none">
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Email</th><th>Phone</th><th>Joined</th></tr>
+      </thead>
+      <tbody id="usersBody"></tbody>
+    </table>
+  </div>
+<div class="table-wrap" id="feedbackTab" style="display:none">
+  <div id="feedbackList"></div>
+</div>
+  <script src="../js/auth.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

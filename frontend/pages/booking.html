@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Book a Driver – PintoPin</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    .booking-wrapper {
+         display: flex; gap: 24px;
+         max-width: 1300px; margin: 30px auto;
+         padding: 0 20px; flex-wrap: wrap;
+    }
+    .booking-form { flex: 1; min-width: 300px; }
+    .map-box {
+         flex: 1.5; min-width: 350px;
+         border-radius: 12px; overflow: hidden;
+         box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+         min-height: 580px;
+
+    }
+    #map { width: 100%; height: 580px; }
+    .fare-box {
+      background: #f0fff4;
+      border: 2px solid #28a745;
+      border-radius: 10px; padding: 16px;
+      margin-top: 16px; display: none;
+    }
+    .fare-box h3 { color: #28a745; margin-bottom: 8px; }
+    .fare-box p  { color: #333; font-size: 15px; }
+  </style>
+</head>
+<body class="page-bg-booking">
+  <nav class="navbar">
+    <div class="logo">📍 PintoPin</div>
+    <div class="nav-links">
+  <span id="userName" style="color:#aaa"></span>
+  <a href="history.html" style="color:white">My Bookings</a>
+  <a href="about.html" style="color:white">About</a>
+  <a href="#" onclick="handleLogout()" style="color:#e94560">Logout</a>
+</div>
+  </nav>
+
+  <div class="booking-wrapper">
+    <div class="booking-form">
+  <div class="form-container" style="
+    margin:0;
+    background: rgba(10, 10, 30, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(233, 69, 96, 0.3);
+    border-radius: 16px;
+  ">
+        <h2>Book a Driver 🚗</h2>
+
+        <div class="form-group">
+          <label>Service Type</label>
+          <select id="serviceType">
+            <option value="pickup_drop">🚗 Vehicle Pickup & Drop</option>
+            <option value="driver_with_client">👤 Driver With Me</option>
+          </select>
+        </div>
+
+       <div class="form-group">
+  <label>Pickup Location</label>
+  <div class="autocomplete-wrap">
+    <input type="text" id="pickup"
+      placeholder="Type pickup address..."
+      oninput="getSuggestions('pickup')"
+      autocomplete="off"/>
+    <div class="suggestions-list" id="pickup-suggestions"></div>
+  </div>
+  <button onclick="searchLocation('pickup')"
+  style="
+    margin-top:8px;
+    padding:8px 18px;
+    font-size:13px;
+    font-weight:600;
+    background: rgba(233,69,96,0.15);
+    color: #e94560;
+    border: 1.5px solid #e94560;
+    border-radius:8px;
+    cursor:pointer;
+    width:100%;
+    transition: all 0.2s;
+  "
+  onmouseover="this.style.background='#e94560';this.style.color='white'"
+  onmouseout="this.style.background='rgba(233,69,96,0.15)';this.style.color='#e94560'">
+  📍 Find on Map
+</button>
+</div>
+
+        <div class="form-group">
+  <label>Drop Location</label>
+  <div class="autocomplete-wrap">
+    <input type="text" id="drop"
+      placeholder="Type drop address..."
+      oninput="getSuggestions('drop')"
+      autocomplete="off"/>
+    <div class="suggestions-list" id="drop-suggestions"></div>
+  </div>
+  <button onclick="searchLocation('drop')"
+  style="
+    margin-top:8px;
+    padding:8px 18px;
+    font-size:13px;
+    font-weight:600;
+    background: rgba(0,200,150,0.15);
+    color: #00c896;
+    border: 1.5px solid #00c896;
+    border-radius:8px;
+    cursor:pointer;
+    width:100%;
+    transition: all 0.2s;
+  "
+  onmouseover="this.style.background='#00c896';this.style.color='white'"
+  onmouseout="this.style.background='rgba(0,200,150,0.15)';this.style.color='#00c896'">
+  🏁 Find on Map
+</button>
+</div>
+
+        <div class="form-group">
+          <label>Date & Time</label>
+          <input type="datetime-local" id="datetime"/>
+        </div>
+
+        <div class="form-group">
+          <label>Vehicle Number</label>
+          <input type="text" id="vehicleNumber"
+            placeholder="KA 01 AB 1234"/>
+        </div>
+
+        <div class="fare-box" id="fareBox">
+          <h3>💰 Estimated Fare</h3>
+          <p id="fareText">Calculating...</p>
+        </div>
+
+        <div style="
+  background: #2a1f00;
+  border: 2px solid #ffc107;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 16px;
+">
+  <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px">
+    <span style="font-size:24px">⛽</span>
+    <div>
+      <p style="color:#ffc107;font-weight:800;font-size:14px;margin:0 0 6px">
+        ⚠️ Fuel Not Included
+      </p>
+      <p style="color:#ffffff;font-size:13px;margin:0;line-height:1.6">
+        The fare shown covers the <strong style="color:#ffc107">driver's service charges only</strong>.
+        Fuel cost for the vehicle must be <strong style="color:#ffc107">arranged and paid
+        separately</strong> by the customer before the trip begins.
+      </p>
+    </div>
+  </div>
+
+  <label style="
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    padding:10px 14px;
+    background:#1a1200;
+    border-radius:8px;
+    border:2px solid #ffc107;
+  ">
+    <input type="checkbox" id="fuelAgreed"
+      onchange="toggleBookBtn()"
+      style="width:20px;height:20px;cursor:pointer;accent-color:#e94560;flex-shrink:0"/>
+    <span style="color:#ffffff;font-size:13px;font-weight:600;line-height:1.5">
+      ✅ I understand that fuel is <u>not included</u> in the fare
+      and I will arrange fuel separately before the trip.
+    </span>
+  </label>
+</div>
+
+<button id="bookBtn"
+  class="btn btn-primary btn-full"
+  style="margin-top:14px;opacity:0.4;cursor:not-allowed;font-size:15px"
+  onclick="createBooking()"
+  disabled>
+  🔒 Please agree to fuel terms above to continue
+</button>
+      </div>
+    </div>
+
+    <div class="map-box">
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/email.js"></script>
+  <script src="../js/booking.js"></script>
+</body>
+</html>

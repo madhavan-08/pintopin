@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Driver Dashboard – PintoPin</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .dashboard-wrap { max-width: 750px; margin: 0 auto; padding: 20px; }
+    .tabs {
+      display: flex; gap: 8px;
+      justify-content: center; margin: 20px 0;
+    }
+    .tab {
+      padding: 10px 24px; border-radius: 8px;
+      border: 2px solid #e94560; cursor: pointer;
+      font-weight: 600; background: white; color: #e94560;
+    }
+    .tab.active { background: #e94560; color: white; }
+    .booking-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px; padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .booking-card h3 { margin-bottom: 8px; color: #1a1a2e; }
+    .booking-card p  { color: #555; font-size: 14px; margin: 4px 0; }
+    .badge {
+      display: inline-block; padding: 4px 12px;
+      border-radius: 20px; font-size: 12px;
+      font-weight: 600; margin-bottom: 10px;
+    }
+    .badge-pending     { background: #fff3cd; color: #856404; }
+    .badge-accepted    { background: #cfe2ff; color: #084298; }
+    .badge-in_progress { background: #fff3cd; color: #856404; }
+    .badge-completed   { background: #d1e7dd; color: #0f5132; }
+    .btn-small {
+      padding: 8px 16px; font-size: 13px;
+      margin-right: 8px; margin-top: 10px;
+      cursor: pointer; border: none;
+      border-radius: 8px; font-weight: 600;
+    }
+    .btn-accept   { background: #e94560; color: white; }
+    .btn-start    { background: #0d6efd; color: white; }
+    .btn-complete { background: #28a745; color: white; }
+    .empty { text-align:center; color:#666; padding:40px; }
+    .dashboard-title {
+      text-align: center; padding: 30px 0 0; color: white;
+    }
+  </style>
+</head>
+<body class="page-bg-driver">
+  <nav class="navbar">
+    <div class="logo">📍 PintoPin</div>
+   <div class="nav-links">
+  <span id="driverName" style="color:#aaa"></span>
+  <a href="about.html" style="color:white">About</a>
+  <a href="#" onclick="handleLogout()" style="color:#e94560">Logout</a>
+</div>
+  </nav>
+
+  <div class="dashboard-title">
+    <h2>Driver Dashboard 🚗</h2>
+    <p style="color:#ddd">Manage your trips</p>
+  </div>
+
+  <div class="dashboard-wrap">
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('available')">
+        Available Bookings
+      </button>
+      <button class="tab" onclick="showTab('myjobs')">
+        My Active Jobs
+      </button>
+    </div>
+
+    <div id="availableTab">
+      <div id="availableList"></div>
+    </div>
+
+    <div id="myjobsTab" style="display:none">
+      <div id="myjobsList"></div>
+    </div>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/driver.js"></script>
+</body>
+</html>

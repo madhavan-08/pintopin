@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About – PintoPin</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    /* ── Page background ── */
+    body {
+      background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+        url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1600&auto=format&fit=crop')
+        center/cover no-repeat fixed;
+      min-height: 100vh;
+    }
+
+    .about-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .page-title {
+      text-align: center;
+      padding: 40px 0 30px;
+      color: white;
+    }
+    .page-title h1 { font-size: 36px; margin-bottom: 8px; }
+    .page-title p  { color: #ddd; font-size: 16px; }
+
+    /* ── Cards ── */
+    .about-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .about-card h2 {
+      font-size: 20px;
+      color: #1a1a2e;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e94560;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .about-card p  { color: #555; font-size: 15px; line-height: 1.7; margin-bottom: 8px; }
+    .about-card a  { color: #e94560; text-decoration: none; }
+    .about-card a:hover { text-decoration: underline; }
+
+    /* ── Info grid ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .info-item {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 16px;
+      border-left: 4px solid #e94560;
+    }
+    .info-item label {
+      font-size: 12px;
+      color: #999;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .info-item p {
+      font-size: 15px;
+      color: #1a1a2e;
+      font-weight: 600;
+      margin: 4px 0 0;
+    }
+
+    /* ── Team cards ── */
+    .team-grid {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .team-card {
+      flex: 1;
+      min-width: 200px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      border-top: 4px solid #e94560;
+    }
+    .team-card .avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: #1a1a2e;
+      color: white;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .team-card h3 { color: #1a1a2e; font-size: 16px; margin-bottom: 4px; }
+    .team-card p  { color: #e94560; font-size: 13px; font-weight: 600; }
+    .team-card span { color: #888; font-size: 12px; }
+
+    /* ── Feedback form ── */
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #e94560;
+    }
+
+    /* ── Contact items ── */
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: #e94560;
+      color: white;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-item h4 { color: #1a1a2e; font-size: 14px; margin-bottom: 2px; }
+    .contact-item p  { color: #555; font-size: 15px; margin: 0; }
+
+    /* ── Footer copyright ── */
+    .copyright-box {
+      background: #1a1a2e;
+      color: white;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+    .copyright-box p { color: #aaa; font-size: 14px; margin: 4px 0; }
+    .copyright-box strong { color: #e94560; }
+
+    /* ── Success message ── */
+    .success-msg {
+      background: #d1e7dd;
+      color: #0f5132;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 12px;
+      display: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">📍 PintoPin</div>
+    <div class="nav-links">
+      <a href="../index.html" style="color:white">Home</a>
+      <a href="login.html" style="color:white">Login</a>
+    </div>
+  </nav>
+
+  <div class="page-title">
+    <h1>📍 About PintoPin</h1>
+    <p>Your trusted on-demand driver booking platform</p>
+  </div>
+
+  <div class="about-wrap">
+
+    <!-- About Us -->
+    <div class="about-card">
+      <h2>🚗 About Us</h2>
+      <p>
+        PintoPin is an innovative web-based platform designed to provide a
+        convenient, secure, and efficient solution for booking professional
+        drivers within city limits and intercity routes across India.
+      </p>
+      <p>
+        We connect vehicle owners with verified professional drivers for
+        two primary services — <strong>Vehicle Pickup & Drop</strong> and
+        <strong>Driver With Client</strong> — making urban mobility smarter,
+        safer, and more flexible.
+      </p>
+      <p>
+        Our platform ensures safety through driver background verification,
+        OTP-based trip confirmation, secure JWT authentication, and a
+        transparent dynamic fare calculation system.
+      </p>
+    </div>
+
+    <!-- Company Info -->
+    <div class="about-card">
+      <h2>🏢 Company Information</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Company Name</label>
+          <p>PintoPin Technologies</p>
+        </div>
+        <div class="info-item">
+          <label>Owner / Founder</label>
+          <p>Madhavan A</p>
+        </div>
+        <div class="info-item">
+          <label>Established</label>
+          <p>2026</p>
+        </div>
+        <div class="info-item">
+          <label>Website</label>
+          <p><a href="#">www.pintopin.com</a></p>
+        </div>
+        <div class="info-item">
+          <label>Address</label>
+          <p>Bengaluru, Karnataka, India</p>
+        </div>
+        <div class="info-item">
+          <label>Service Area</label>
+          <p>Pan India 🇮🇳</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Development Team -->
+    <div class="about-card">
+      <h2>👨‍💻 Development Team</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="avatar">👑</div>
+          <h3>Madhavan A</h3>
+          <p>Founder & Owner</p>
+          <span>Product Vision & Management</span>
+        </div>
+        <div class="team-card">
+          <div class="avatar">💻</div>
+          <h3>Madhavan A</h3>
+          <p>Full Stack Developer</p>
+          <span>Node.js · MongoDB · HTML/CSS/JS</span>
+        </div>
+        <div class="team-card">
+          <div class="avatar">🗺️</div>
+          <h3>PintoPin Team</h3>
+          <p>UI/UX Designer</p>
+          <span>Leaflet.js · OpenStreetMap</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact & Customer Care -->
+    <div class="about-card">
+      <h2>📞 Customer Care & Contact</h2>
+
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>Customer Care Helpline</h4>
+          <p>+91 9482591543 (9AM – 9PM, Mon–Sat)</p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div>
+          <h4>Email Support</h4>
+          <p><a href="mailto:zeno.as1926@gmail.com">zeno.as1926@gmail.com</a></p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">🌐</div>
+        <div>
+          <h4>Website</h4>
+          <p><a href="#">www.pintopin.com</a></p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h4>Office Address</h4>
+          <p>PintoPin Technologies, Bengaluru, Karnataka – 560001</p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">⏰</div>
+        <div>
+          <h4>Working Hours</h4>
+          <p>Monday – Saturday: 9:00 AM to 9:00 PM</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback & Complaint Form -->
+    <div class="about-card">
+      <h2>💬 Feedback & Complaints</h2>
+      <p style="margin-bottom:20px">
+        We value your feedback! Help us improve PintoPin by sharing
+        your experience or reporting any issues.
+      </p>
+
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="fbName" placeholder="Enter your name"/>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="fbEmail" placeholder="your@email.com"/>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="fbPhone" placeholder="9876543210"/>
+      </div>
+
+      <div class="form-group">
+        <label>Type</label>
+        <select id="fbType">
+          <option value="feedback">⭐ General Feedback</option>
+          <option value="complaint">⚠️ Complaint</option>
+          <option value="suggestion">💡 Suggestion</option>
+          <option value="driver">🚗 Driver Related Issue</option>
+          <option value="billing">💰 Billing Issue</option>
+          <option value="other">📝 Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" id="fbSubject" placeholder="Brief subject of your message"/>
+      </div>
+
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="fbMessage"
+          placeholder="Please describe your feedback or complaint in detail...">
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Rating (optional)</label>
+        <div id="ratingStars" style="font-size:32px;cursor:pointer">
+          <span onclick="setRating(1)">★</span>
+          <span onclick="setRating(2)">★</span>
+          <span onclick="setRating(3)">★</span>
+          <span onclick="setRating(4)">★</span>
+          <span onclick="setRating(5)">★</span>
+        </div>
+        <input type="hidden" id="fbRating" value="0"/>
+      </div>
+
+      <button class="btn btn-primary btn-full" onclick="submitFeedback()">
+        Submit Feedback 📨
+      </button>
+
+      <div class="success-msg" id="successMsg">
+        ✅ Thank you! Your feedback has been submitted successfully.
+        We will get back to you within 24 hours.
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright-box">
+      <p style="font-size:24px;margin-bottom:12px">📍</p>
+      <p style="font-size:18px;color:white;font-weight:600;margin-bottom:8px">
+        PintoPin Technologies
+      </p>
+      <p>Developed by <strong>Madhavan A</strong></p>
+      <p>Website: <strong>www.pintopin.com</strong></p>
+      <p>Email: <strong>zeno.as1926@gmail.com</strong></p>
+      <p>Bengaluru, Karnataka, India 🇮🇳</p>
+      <p style="margin-top:16px;font-size:13px">
+        © 2026 PintoPin Technologies. All Rights Reserved.
+      </p>
+      <p style="font-size:12px;color:#666;margin-top:4px">
+        Unauthorized use, reproduction, or distribution of this
+        platform is strictly prohibited.
+      </p>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  // ── Your EmailJS credentials ──
+  const FEEDBACK_SERVICE_ID  = 'service_8cm8kv4';   // same as booking
+  const FEEDBACK_TEMPLATE_ID = 'template_e9qxlil';  // feedback template
+  const FEEDBACK_PUBLIC_KEY  = 'KyRvCY2eH-8-sHfl-';   // same as booking
+
+  emailjs.init(FEEDBACK_PUBLIC_KEY);
+
+  let selectedRating = 0;
+
+  function setRating(val) {
+    selectedRating = val;
+    document.getElementById('fbRating').value = val;
+    const stars = document.querySelectorAll('#ratingStars span');
+    stars.forEach((s, i) => {
+      s.style.color     = i < val ? '#ffc107' : '#ddd';
+      s.style.transform = i < val ? 'scale(1.2)' : 'scale(1)';
+    });
+  }
+
+  async function submitFeedback() {
+    const name    = document.getElementById('fbName').value.trim();
+    const email   = document.getElementById('fbEmail').value.trim();
+    const phone   = document.getElementById('fbPhone').value.trim();
+    const type    = document.getElementById('fbType').value;
+    const subject = document.getElementById('fbSubject').value.trim();
+    const message = document.getElementById('fbMessage').value.trim();
+
+    if (!name || !email || !subject || !message) {
+      alert('❌ Please fill in Name, Email, Subject and Message');
+      return;
+    }
+
+    const btn = document.querySelector('button[onclick="submitFeedback()"]');
+    btn.textContent = '📨 Sending...';
+    btn.disabled    = true;
+
+    let dbSaved    = false;
+    let emailSent  = false;
+
+    // 1️⃣ Save to MongoDB (Admin Panel)
+    try {
+      const res = await fetch('http://localhost:5000/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, email,
+          phone:   phone || '',
+          type, subject, message,
+          rating: selectedRating
+        })
+      });
+      if (res.ok) dbSaved = true;
+    } catch (err) {
+      console.log('DB save error:', err);
+    }
+
+    // 2️⃣ Send Email via EmailJS
+    try {
+      await emailjs.send(
+        FEEDBACK_SERVICE_ID,
+        FEEDBACK_TEMPLATE_ID,
+        {
+          fb_name:    name,
+          fb_email:   email,
+          fb_phone:   phone || 'Not provided',
+          fb_type:    type,
+          fb_subject: subject,
+          fb_message: message,
+          fb_rating:  selectedRating > 0
+                        ? selectedRating + ' / 5 ⭐'
+                        : 'No rating given',
+        }
+      );
+      emailSent = true;
+    } catch (err) {
+      console.log('Email error:', err);
+    }
+
+    // 3️⃣ Show result
+    if (dbSaved || emailSent) {
+      // Clear form
+      document.getElementById('fbName').value    = '';
+      document.getElementById('fbEmail').value   = '';
+      document.getElementById('fbPhone').value   = '';
+      document.getElementById('fbSubject').value = '';
+      document.getElementById('fbMessage').value = '';
+      setRating(0);
+
+      // Show success message
+      const msg = document.getElementById('successMsg');
+      msg.style.display = 'block';
+      msg.innerHTML = `
+        ✅ Thank you <strong>${name}</strong>!
+        Your feedback has been received successfully.
+        ${emailSent ? '📧 A copy has been sent to our support team.' : ''}
+        We will respond within 24 hours.
+      `;
+      setTimeout(() => msg.style.display = 'none', 6000);
+
+    } else {
+      alert('❌ Failed to submit feedback. Please try again or email us at support@pintopin.com');
+    }
+
+    btn.textContent = 'Submit Feedback 📨';
+    btn.disabled    = false;
+  }
+</script>
+</body>
+</html>
