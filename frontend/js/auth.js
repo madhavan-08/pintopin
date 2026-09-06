@@ -36,8 +36,20 @@ async function handleLogin() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
-  if (!email || !password) {
+    if (!name || !email || !phone || !password) {
     alert('Please fill in all fields');
+    return;
+  }
+
+  // Phone must be exactly 10 digits starting with 6-9
+  if (!/^[6-9]\d{9}$/.test(phone)) {
+    alert('❌ Invalid phone number!\nMust be 10 digits starting with 6, 7, 8 or 9\nExample: 9876543210');
+    return;
+  }
+
+  // Password must be at least 6 characters
+  if (password.length < 6) {
+    alert('❌ Password must be at least 6 characters!');
     return;
   }
 
