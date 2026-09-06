@@ -12,7 +12,11 @@ async function handleRegister() {
     alert('Please fill in all fields');
     return;
   }
-
+// Email validation - must have @ and proper domain
+if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+  alert('❌ Invalid email address!\nExample: name@gmail.com');
+  return;
+}
   // Phone must be exactly 10 digits starting with 6-9
   if (!/^[6-9]\d{9}$/.test(phone)) {
     alert('❌ Invalid phone number!\nMust be 10 digits starting with 6, 7, 8 or 9\nExample: 9876543210');

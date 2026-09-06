@@ -9,17 +9,33 @@ router.post('/register', async (req, res) => {
   try {
     const { name, email, phone, password, role } = req.body;
 
+    // Validate name
+    if (!name || name.trim().length < 2) {
+      return res.status(400).json({ message: '❌ Please enter your full name!' });
+    }
+
+    // Validate email
+    if (!email || !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+      return res.status(400).json({ message: '❌ Invalid email! Example: name@gmail.com' });
+    }
+
+    // Validate phone
+    if (!phone || !/^[6-9]\d{9}$/.test(phone)) {
+      return res.status(400).json({ message: '❌ Invalid phone! Must be 10 digits starting with 6-9' });
+    }
+
+    // Validate password
+    if (!password || password.length < 6) {
+      return res.status(400).json({ message: '❌ Password must be at least 6 characters!' });
+    }
+
     // Check if email already exists
 const existingEmail = await User.findOne({ email });
 if (existingEmail) {
   return res.status(400).json({ message: 'Email already registered' });
 }
 
-// Check if phone already exists
-const existingPhone = await User.findOne({ phone });
-if (existingPhone) {
-  return res.status(400).json({ message: 'Phone number already registered' });
-}
+
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -84,7 +100,7 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
-const OTP = require('../models/OTP.JS');
+const OTP = require('../models/OTP');
 
 // Generate and send OTP
 router.post('/forgot-password', async (req, res) => {
