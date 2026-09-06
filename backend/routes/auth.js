@@ -84,7 +84,7 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
-const OTP = require('../models/OTP');
+const OTP = require('../models/OTP.JS');
 
 // Generate and send OTP
 router.post('/forgot-password', async (req, res) => {

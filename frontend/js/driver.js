@@ -21,7 +21,7 @@ function showTab(tab) {
 
 async function loadAvailable() {
   try {
-    const res  = await fetch('http://localhost:5000/api/bookings', {
+    const res  = await fetch('https://pintopin.onrender.com/api/bookings', {
       headers: { 'Authorization': getToken() }
     });
     const data = await res.json();
@@ -34,7 +34,7 @@ async function loadAvailable() {
 
 async function loadMyJobs() {
   try {
-    const res  = await fetch('http://localhost:5000/api/bookings/my-jobs', {
+    const res  = await fetch('https://pintopin.onrender.com/api/bookings/my-jobs', {
       headers: { 'Authorization': getToken() }
     });
     const data = await res.json();
@@ -155,7 +155,7 @@ function renderMyJobs(bookings) {
 
 async function acceptBooking(id) {
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/${id}/accept`, {
+    const res = await fetch(`https://pintopin.onrender.com/api/bookings/${id}/accept`, {
       method: 'PUT',
       headers: { 'Authorization': getToken() }
     });
@@ -177,7 +177,7 @@ async function verifyOTP(id) {
   }
 
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/${id}/verify-otp`, {
+    const res = await fetch(`https://pintopin.onrender.com/api/bookings/${id}/verify-otp`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -203,7 +203,7 @@ async function completeTrip(id) {
   if (!confirm('Are you sure you want to complete this trip?')) return;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/${id}/complete`, {
+    const res = await fetch(`https://pintopin.onrender.com/api/bookings/${id}/complete`, {
       method: 'PUT',
       headers: { 'Authorization': getToken() }
     });

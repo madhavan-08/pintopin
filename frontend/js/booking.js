@@ -297,7 +297,7 @@ async function createBooking() {
   }
 
   try {
-    const res = await fetch('http://localhost:5000/api/bookings', {
+    const res = await fetch('https://pintopin.onrender.com/api/bookings', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

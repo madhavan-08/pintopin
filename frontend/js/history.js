@@ -5,7 +5,7 @@ window.onload = function() {
 
 async function loadHistory() {
   try {
-    const res  = await fetch('http://localhost:5000/api/bookings/my', {
+    const res  = await fetch('https://pintopin.onrender.com/api/bookings/my', {
       headers: { 'Authorization': getToken() }
     });
     const data = await res.json();
@@ -75,7 +75,7 @@ ${b.status === 'accepted' && b.confirmOTP ? `
 async function rateBooking(bookingId, rating) {
   const review = prompt(`Rate ${rating}/5 — Add a comment (optional):`);
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}/rate`, {
+    const res = await fetch(`https://pintopin.onrender.com/api/bookings/${bookingId}/rate`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

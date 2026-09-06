@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = 'https://pintopin.onrender.com/api';
 
 async function handleRegister() {
   const name = document.getElementById('name').value;

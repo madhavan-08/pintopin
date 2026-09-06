@@ -21,7 +21,7 @@ function showTab(tab) {
 
 async function loadStats() {
   try {
-    const res  = await fetch('http://localhost:5000/api/admin/stats', {
+    const res  = await fetch('https://pintopin.onrender.com/api/admin/stats', {
       headers: { 'Authorization': getToken() }
     });
     const data = await res.json();
@@ -37,7 +37,7 @@ async function loadStats() {
 
 async function loadBookings() {
   try {
-    const res  = await fetch('http://localhost:5000/api/admin/bookings', {
+    const res  = await fetch('https://pintopin.onrender.com/api/admin/bookings', {
       headers: { 'Authorization': getToken() }
     });
     const data = await res.json();
@@ -59,7 +59,7 @@ async function loadBookings() {
 
 async function loadDrivers() {
   try {
-    const res  = await fetch('http://localhost:5000/api/admin/drivers', {
+    const res  = await fetch('https://pintopin.onrender.com/api/admin/drivers', {
       headers: { 'Authorization': getToken() }
     });
     const data = await res.json();
@@ -90,7 +90,7 @@ async function loadDrivers() {
 
 async function loadUsers() {
   try {
-    const res  = await fetch('http://localhost:5000/api/admin/users', {
+    const res  = await fetch('https://pintopin.onrender.com/api/admin/users', {
       headers: { 'Authorization': getToken() }
     });
     const data = await res.json();
@@ -109,7 +109,7 @@ async function loadUsers() {
 
 async function approveDriver(driverId) {
   try {
-    const res = await fetch(`http://localhost:5000/api/admin/drivers/${driverId}/approve`, {
+    const res = await fetch(`https://pintopin.onrender.com/api/admin/drivers/${driverId}/approve`, {
       method: 'PUT',
       headers: { 'Authorization': getToken() }
     });
