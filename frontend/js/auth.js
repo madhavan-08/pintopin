@@ -1,42 +1,14 @@
 const API = 'https://pintopin.onrender.com/api';
 
 async function handleRegister() {
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const phone = document.getElementById('phone').value;
+  const name     = document.getElementById('name').value.trim();
+  const email    = document.getElementById('email').value.trim();
+  const phone    = document.getElementById('phone').value.trim();
   const password = document.getElementById('password').value;
-  const role = document.getElementById('role').value;
+  const role     = document.getElementById('role').value;
 
+  // Check all fields filled
   if (!name || !email || !phone || !password) {
-    alert('Please fill in all fields');
-    return;
-  }
-
-  try {
-    const res = await fetch(`${API}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, phone, password, role })
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-  alert('✅ Registered successfully! Please login.');
-  window.location.href = 'login.html';
-} else {
-  alert('❌ ' + (data.message || 'Registration failed'));
-}
-  } catch (err) {
-    alert('Cannot connect to server. Is it running?');
-  }
-}
-
-async function handleLogin() {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-    if (!name || !email || !phone || !password) {
     alert('Please fill in all fields');
     return;
   }
@@ -54,6 +26,35 @@ async function handleLogin() {
   }
 
   try {
+    const res = await fetch(`${API}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, password, role })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert('✅ Registered successfully! Please login.');
+      window.location.href = 'login.html';
+    } else {
+      alert('❌ ' + (data.message || 'Registration failed'));
+    }
+  } catch (err) {
+    alert('Cannot connect to server. Is it running?');
+  }
+}
+
+async function handleLogin() {
+  const email    = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  if (!email || !password) {
+    alert('Please fill in all fields');
+    return;
+  }
+
+  try {
     const res = await fetch(`${API}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -63,13 +64,11 @@ async function handleLogin() {
     const data = await res.json();
 
     if (res.ok) {
-      // Save token and user info
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
 
       alert(`Welcome ${data.user.name}!`);
 
-      // Redirect based on role
       if (data.user.role === 'customer') {
         window.location.href = 'booking.html';
       } else if (data.user.role === 'driver') {
